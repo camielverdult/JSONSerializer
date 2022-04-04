@@ -56,3 +56,6 @@ cmake-build-*
 
 # Mac files
 .DS_Store
+
+# CLion files
+.idea

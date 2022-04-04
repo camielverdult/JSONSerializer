@@ -3,24 +3,34 @@
 #include "JSON.h"
 
 int main() {
-    JSONDictionary* new = JSON_New();
 
-    JSON_Set_Float(new, "Voltage", 4.832);
-    JSON_Set_Integer(new, "Mode", 2);
-    JSON_Set_String(new, "Current", "432mA");
-    JSON_Set_String(new, "Color", "Blue");
+    JSONDictionary new;
 
-    const uint16_t buffer_length = JSON_Dictionary_Calc_Buffer_Size(new);
+    JSON_Dictionary_Init(&new);
 
-    printf("Projected length: %d\n", buffer_length);
+    int i = 0;
 
-    char buffer[buffer_length];
+    while (i < 10000) {
 
-    JSON_Serialize_Dictionary(new, buffer, buffer_length);
+        JSON_Set_Float(&new, "Voltage", 4.832);
+        JSON_Set_Integer(&new, "Mode", 2);
+        JSON_Set_String(&new, "Current", "432mA");
+        JSON_Set_String(&new, "Color", "Blue");
 
-    printf("%s\n", buffer);
+        const uint16_t buffer_length = JSON_Dictionary_Calc_Buffer_Size(&new);
 
-    JSON_Cleanup(new);
+        printf("Projected length: %d\n", buffer_length);
+
+        char buffer[buffer_length];
+
+        JSON_Serialize_Dictionary(&new, buffer, buffer_length);
+
+        printf("%s\n", buffer);
+
+        i++;
+    }
+
+    JSON_Cleanup(&new);
 
     return EXIT_SUCCESS;
 }
