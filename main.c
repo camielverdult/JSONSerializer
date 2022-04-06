@@ -7,28 +7,16 @@ int main() {
     JSONDictionary new;
 
     JSON_Dictionary_Init(&new);
+//    JSON_Set_Float(&new, "Voltage", 4.832);
+//    JSON_Set_Integer(&new, "Mode", 2);
+    JSON_Set_String(&new, "Current", "432mA");
+//    JSON_Set_String(&new, "Color", "Blue");
 
-    int i = 0;
+    char buffer[1000];
 
-    while (i < 10000) {
+    JSON_Serialize_Dictionary(&new, buffer, 1000);
 
-        JSON_Set_Float(&new, "Voltage", 4.832);
-        JSON_Set_Integer(&new, "Mode", 2);
-        JSON_Set_String(&new, "Current", "432mA");
-        JSON_Set_String(&new, "Color", "Blue");
-
-        const uint16_t buffer_length = JSON_Dictionary_Calc_Buffer_Size(&new);
-
-        printf("Projected length: %d\n", buffer_length);
-
-        char buffer[buffer_length];
-
-        JSON_Serialize_Dictionary(&new, buffer, buffer_length);
-
-        printf("%s\n", buffer);
-
-        i++;
-    }
+    printf("%s\n", buffer);
 
     JSON_Cleanup(&new);
 
