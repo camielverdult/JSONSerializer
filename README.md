@@ -1,6 +1,6 @@
 # JSONSerializer
 
-This is a simple and light C library for serializing strings to a string. 
+This is a simple and light C library for setting key value pairs and serializing them to a json formatted string. 
 
 `JSON_New` returns a new JSON object, with the object and its internal array allocated on the heap.
 
