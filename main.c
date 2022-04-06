@@ -22,7 +22,6 @@ int main() {
     JSON_Set_String(&new, "Curarensft", "432mA");
     JSON_Set_String(&new, "Cosfalor", "Blue");
 
-
     char buffer[1000];
 
     JSON_Serialize_Dictionary(&new, buffer, 1000);
