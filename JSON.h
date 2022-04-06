@@ -10,9 +10,9 @@
 #include <string.h>
 #include <stdio.h>
 
-#define CAPACITY 20
-#define GROWTH 3
-#define STRING_LENGTH 10
+const uint8_t CAPACITY = 20;
+const uint8_t GROWTH = 3;
+const uint8_t STRING_LENGTH = 15;
 
 typedef struct {
 	char key[STRING_LENGTH];
@@ -80,7 +80,7 @@ void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* va
 	//dictionary->entries[dictionary->size].value = value;
     strcpy((char*)&dictionary->entries[dictionary->size].value, value);
 
-	dictionary->size++;
+	dictionary->size += 1;
 }
 
 void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
@@ -114,11 +114,17 @@ void JSON_Serialize_Dictionary(JSONDictionary* dictionary, char* buffer, uint16_
 
 		JSON_Serialize_Entry(&dictionary->entries[i], entry_buffer);
 
-		if (i == 0) {
+        if (dictionary->size == 1) {
+            // Formatting for single entry only
+            sprintf(&buffer[buffer_index], "{ %s }", entry_buffer);
+        } else if (i == 0) {
+            // Multiple entries, start dictionary
 			sprintf(&buffer[buffer_index], "{ %s, ", entry_buffer);
 		} else if (i < (dictionary->size - 1)) {
+            // Multiple entries, middle of dictionary
 			sprintf(&buffer[buffer_index], "%s, ", entry_buffer);
 		} else if (i == (dictionary->size - 1)) {
+            // Multiple entries, end dictionary
 			sprintf(&buffer[buffer_index], "%s }", entry_buffer);
 		}
 
