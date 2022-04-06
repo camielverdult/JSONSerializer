@@ -1,5 +1,7 @@
 # JSONSerializer
 
+Current status: The JSONSerializer function sigaborts the program after the first iteration for some reason. God help me.
+
 This is a simple and light C library for serializing strings to a string. 
 
 `JSON_New` returns a new JSON object, with the object and its internal array allocated on the heap.
