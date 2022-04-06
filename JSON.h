@@ -109,30 +109,28 @@ void JSON_Serialize_Dictionary(JSONDictionary* dictionary, char* buffer, uint16_
 		
 	// Add each entry as dictionary
 	for (uint8_t i = 0; i < dictionary->size; i++) {
-		// Call helper function to convert entry to string
+
 		char entry_buffer[STRING_LENGTH];
 
-		JSON_Serialize_Entry(&dictionary->entries[i], entry_buffer);
+        // Call helper function to convert each entry to string
+        JSON_Serialize_Entry(&dictionary->entries[i], entry_buffer);
 
         if (dictionary->size == 1) {
-            // Formatting for single entry only
+            // Serializing single entry only
             sprintf(&buffer[buffer_index], "{ %s }", entry_buffer);
         } else if (i == 0) {
-            // Multiple entries, start dictionary
+            // Serializing multiple entries; start of dictionary
 			sprintf(&buffer[buffer_index], "{ %s, ", entry_buffer);
 		} else if (i < (dictionary->size - 1)) {
-            // Multiple entries, middle of dictionary
+            // Serializing multiple entries; middle of dictionary
 			sprintf(&buffer[buffer_index], "%s, ", entry_buffer);
 		} else if (i == (dictionary->size - 1)) {
-            // Multiple entries, end dictionary
+            // Serializing multiple entries; end dictionary
 			sprintf(&buffer[buffer_index], "%s }", entry_buffer);
 		}
 
-//        printf("%s\n", buffer);
-
         buffer_index = strlen(buffer);
     }
-
 }
 
 void JSON_Cleanup(JSONDictionary* dictionary) {
