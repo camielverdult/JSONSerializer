@@ -10,6 +10,11 @@
 #include <string.h>
 #include <stdio.h>
 
+//const uint8_t CAPACITY = 20;
+//const uint8_t GROWTH = 3;
+//const uint8_t STRING_LENGTH = 15;
+//const uint8_t ENTRY_BUFF_LENGTH = STRING_LENGTH * 2.5f;
+
 #define CAPACITY 20
 #define GROWTH 3
 #define STRING_LENGTH 15
