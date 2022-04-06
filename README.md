@@ -6,8 +6,6 @@ This is a simple and light C library for serializing strings to a string.
 
 `JSON_Set_x` sets/updates a key value pair, calls `JSON_Check` first to make sure no out of bounds errors occur.
 
-`JSON_Dictionary_Calc_Buffer_Size` returns the amount of characters needed to hold the serialized object in a character buffer.
-
 `JSON_Serialize_Dictionary` serializes a `JSONDictionary` into a character buffer.
 
 Here is an example:
