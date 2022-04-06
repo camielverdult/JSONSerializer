@@ -13,6 +13,7 @@
 const uint8_t CAPACITY = 20;
 const uint8_t GROWTH = 3;
 const uint8_t STRING_LENGTH = 15;
+const uint8_t ENTRY_BUFF_LENGTH = STRING_LENGTH * 2.5f;
 
 typedef struct {
 	char key[STRING_LENGTH];
@@ -97,8 +98,8 @@ void JSON_Set_Integer(JSONDictionary* dictionary, const char* key, uint16_t valu
 	JSON_Set_String(dictionary, key, buffer);
 }
 
-void JSON_Serialize_Entry(JSONEntry* entry, char* buffer) {
-	sprintf(buffer, "\"%s\": \"%s\"", entry->key, entry->value);
+void JSON_Serialize_Entry(JSONEntry* entry, char* buffer, uint8_t buffer_length) {
+	snprintf(buffer, buffer_length, "\"%s\": \"%s\"", entry->key, entry->value);
 }
 
 void JSON_Serialize_Dictionary(JSONDictionary* dictionary, char* buffer, uint16_t buffer_length) {
@@ -110,23 +111,23 @@ void JSON_Serialize_Dictionary(JSONDictionary* dictionary, char* buffer, uint16_
 	// Add each entry as dictionary
 	for (uint8_t i = 0; i < dictionary->size; i++) {
 
-		char entry_buffer[STRING_LENGTH];
+		char entry_buffer[ENTRY_BUFF_LENGTH];
 
         // Call helper function to convert each entry to string
-        JSON_Serialize_Entry(&dictionary->entries[i], entry_buffer);
+        JSON_Serialize_Entry(&dictionary->entries[i], entry_buffer, ENTRY_BUFF_LENGTH);
 
         if (dictionary->size == 1) {
             // Serializing single entry only
-            sprintf(&buffer[buffer_index], "{ %s }", entry_buffer);
+            snprintf(&buffer[buffer_index], ENTRY_BUFF_LENGTH, "{ %s }", entry_buffer);
         } else if (i == 0) {
             // Serializing multiple entries; start of dictionary
-			sprintf(&buffer[buffer_index], "{ %s, ", entry_buffer);
+			snprintf(&buffer[buffer_index], ENTRY_BUFF_LENGTH, "{ %s, ", entry_buffer);
 		} else if (i < (dictionary->size - 1)) {
             // Serializing multiple entries; middle of dictionary
-			sprintf(&buffer[buffer_index], "%s, ", entry_buffer);
+			snprintf(&buffer[buffer_index], ENTRY_BUFF_LENGTH, "%s, ", entry_buffer);
 		} else if (i == (dictionary->size - 1)) {
             // Serializing multiple entries; end dictionary
-			sprintf(&buffer[buffer_index], "%s }", entry_buffer);
+			snprintf(&buffer[buffer_index], ENTRY_BUFF_LENGTH, "%s }", entry_buffer);
 		}
 
         buffer_index = strlen(buffer);
