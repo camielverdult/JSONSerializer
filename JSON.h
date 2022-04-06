@@ -88,6 +88,7 @@ void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
     char buffer[STRING_LENGTH];
     memset(buffer, 0, STRING_LENGTH);
 
+    // TODO: find a replacement for this for AVR/arduino
     snprintf(buffer, STRING_LENGTH, "%f", value);
 
 	JSON_Set_String(dictionary, key, buffer);

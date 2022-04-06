@@ -11,7 +11,9 @@ void loop() {
 
   JSON_Dictionary_Init(&json);
 
-  JSON_Set_Float(&json, "Voltage", 4.83);
+  // snprintf does not work on embedded systems
+  // so, we do not use the set_float function
+//  JSON_Set_Float(&json, "Voltage", 4.83);
   JSON_Set_Integer(&json, "Mode", 2);
   JSON_Set_String(&json, "Current", "432mA");
   JSON_Set_String(&json, "Color", "Blue");
