@@ -7,6 +7,7 @@ int main() {
     JSONDictionary new;
 
     JSON_Dictionary_Init(&new);
+
     JSON_Set_Float(&new, "Voltage", 4.832);
     JSON_Set_Integer(&new, "Mode", 2);
     JSON_Set_String(&new, "Current", "432mA");
@@ -21,6 +22,21 @@ int main() {
     JSON_Set_Integer(&new, "Mosfade", 2);
     JSON_Set_String(&new, "Curarensft", "432mA");
     JSON_Set_String(&new, "Cosfalor", "Blue");
+
+    JSON_Set_Float(&new, "Voltsaage", 4.832);
+    JSON_Set_Integer(&new, "saMode", 2);
+    JSON_Set_String(&new, "Currsaent", "432mA");
+    JSON_Set_String(&new, "Cosalor", "Blue");
+
+    JSON_Set_Float(&new, "Volsatasfge", 4.832);
+    JSON_Set_Integer(&new, "Mossafde", 2);
+    JSON_Set_String(&new, "Currsaensft", "432mA");
+    JSON_Set_String(&new, "Cosflsaor", "Blue");
+
+    JSON_Set_Float(&new, "Volsatasfage", 4.832);
+    JSON_Set_Integer(&new, "Mosfasade", 2);
+    JSON_Set_String(&new, "Cursaarensft", "432mA");
+    JSON_Set_String(&new, "Cosfalosar", "Blue");
 
     char buffer[1000];
 

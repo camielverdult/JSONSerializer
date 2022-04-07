@@ -52,11 +52,10 @@ void JSON_Check(JSONDictionary* dictionary, uint8_t new_length) {
 	uint16_t new_capacity = dictionary->capacity * GROWTH;
 
 	dictionary->entries = (JSONEntry*)realloc(dictionary->entries, sizeof(JSONEntry) * new_capacity);
+    dictionary->capacity = new_capacity;
 }
 
 void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* value) {
-	
-	JSON_Check(dictionary, dictionary->size + 1);
 
 	// Check if key already exists
 	for (uint8_t i = 0; i < dictionary->size; i++) {
@@ -72,6 +71,8 @@ void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* va
 			return;
 		}
 	}
+
+    JSON_Check(dictionary, dictionary->size + 1);
 
     JSON_Entry_Init(&dictionary->entries[dictionary->size]);
 	
