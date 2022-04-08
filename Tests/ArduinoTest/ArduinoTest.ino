@@ -3,6 +3,7 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  pinMode(A0, INPUT);
 }
 
 void loop() {
@@ -11,9 +12,8 @@ void loop() {
 
   JSON_Dictionary_Init(&json);
 
-  // snprintf does not work on embedded systems
-  // so, we do not use the set_float function
-//  JSON_Set_Float(&json, "Voltage", 4.83);
+  // snprintf may not work on embedded systems
+  JSON_Set_Float(&json, "Voltage", analogRead(A0) * (5.0 / 1023.0));
   JSON_Set_Integer(&json, "Mode", 2);
   JSON_Set_String(&json, "Current", "432mA");
   JSON_Set_String(&json, "Color", "Blue");
