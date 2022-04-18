@@ -28,3 +28,7 @@ printf("%s\n", buffer);
 
 JSON_Cleanup(&new);
 ```
+
+This code is not safe, it would need the following to be memory-safe:
+- Using `strncmp` and `strncpy`
+- Either dynamically (check + error) or introduce a precondition for the function (assert; check + error can and must happen elsewhere then)
