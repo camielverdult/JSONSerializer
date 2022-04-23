@@ -13,7 +13,14 @@
 #define CAPACITY 20
 #define GROWTH 3
 #define STRING_LENGTH 15
+#define MAX_STRING_LENGTH STRING_LENGTH * 2
 #define ENTRY_BUFF_LENGTH ((STRING_LENGTH * 2) + 10)
+
+#define or ||
+#define and &&
+#define not !
+#define true 1
+#define false 0
 
 typedef struct {
 	char key[STRING_LENGTH];
@@ -55,18 +62,40 @@ void JSON_Check(JSONDictionary* dictionary, uint8_t new_length) {
     dictionary->capacity = new_capacity;
 }
 
+uint8_t JSON_String_Valid(const char* string) {
+    // This function checks if the passed string has a null-terminator character
+    // before reaching the max string length allowed
+    uint8_t i = 0;
+
+    while (string[i] != '\0') {
+        i++;
+        if (i == MAX_STRING_LENGTH) {
+            // This string is too long or has a broken null-terminator
+            return false;
+        }
+    }
+
+    // String might be too long (strncpy will terminate it) and has a null terminator before the max string length
+    return true;
+}
+
 void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* value) {
+
+    if (not JSON_String_Valid(key) or not JSON_String_Valid(value)) {
+        // Passed key or value is broken and unsafe to use, abort
+        return;
+    }
 
 	// Check if key already exists
 	for (uint8_t i = 0; i < dictionary->size; i++) {
-		if (strcmp(dictionary->entries[i].key, key) == 0) {
+		if (strncmp(dictionary->entries[i].key, key, STRING_LENGTH) == 0) {
 
-            if (strcmp(dictionary->entries[i].value, value) == 0) {
+            if (strncmp(dictionary->entries[i].value, value, STRING_LENGTH) == 0) {
                 return;
             }
 
 			// Key exists, update value
-			strcpy((char*)&dictionary->entries[i].value, value);
+			strncpy((char*)&dictionary->entries[i].value, value, STRING_LENGTH);
 
 			return;
 		}
@@ -77,15 +106,21 @@ void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* va
     JSON_Entry_Init(&dictionary->entries[dictionary->size]);
 	
 	// Key does not exist here, add it
-    strcpy((char*)&dictionary->entries[dictionary->size].key, key);
+    strncpy((char*)&dictionary->entries[dictionary->size].key, key, STRING_LENGTH);
 
 	//dictionary->entries[dictionary->size].value = value;
-    strcpy((char*)&dictionary->entries[dictionary->size].value, value);
+    strncpy((char*)&dictionary->entries[dictionary->size].value, value, STRING_LENGTH);
 
 	dictionary->size += 1;
 }
 
 void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
+
+    if (not JSON_String_Valid(key)) {
+        // Passed key or value is broken and unsafe to use, abort
+        return;
+    }
+
     char buffer[STRING_LENGTH];
     memset(buffer, 0, STRING_LENGTH);
 
@@ -96,6 +131,12 @@ void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
 }
 
 void JSON_Set_Integer(JSONDictionary* dictionary, const char* key, uint16_t value) {
+
+    if (not JSON_String_Valid(key)) {
+        // Passed key or value is broken and unsafe to use, abort
+        return;
+    }
+
 	char buffer[STRING_LENGTH];
     memset(buffer, 0, STRING_LENGTH);
 
@@ -110,7 +151,10 @@ void JSON_Serialize_Entry(JSONEntry* entry, char* buffer, uint8_t buffer_length)
 
 void JSON_Serialize_Dictionary(JSONDictionary* dictionary, char* buffer, uint16_t buffer_length) {
 
-    memset(buffer, 0, buffer_length);
+    // Fill the entire buffer with null terminator characters so that strlen is
+    // less obliged to not find a null terminator string, strncpy will write these
+    // over anyway while building the dictionary
+    memset(buffer, '\0', buffer_length);
 
 	uint32_t buffer_index = 0;
 		

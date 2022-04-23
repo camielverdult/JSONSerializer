@@ -11,32 +11,8 @@ int main() {
     JSON_Set_Float(&new, "Voltage", 4.832);
     JSON_Set_Integer(&new, "Mode", 2);
     JSON_Set_String(&new, "Current", "432mA");
-    JSON_Set_String(&new, "Color", "Blue");
-
-    JSON_Set_Float(&new, "Voltasfge", 4.832);
-    JSON_Set_Integer(&new, "Mosfde", 2);
-    JSON_Set_String(&new, "Currensft", "432mA");
-    JSON_Set_String(&new, "Cosflor", "Blue");
-
-    JSON_Set_Float(&new, "Voltasfage", 4.832);
-    JSON_Set_Integer(&new, "Mosfade", 2);
-    JSON_Set_String(&new, "Curarensft", "432mA");
-    JSON_Set_String(&new, "Cosfalor", "Blue");
-
-    JSON_Set_Float(&new, "Voltsaage", 4.832);
-    JSON_Set_Integer(&new, "saMode", 2);
-    JSON_Set_String(&new, "Currsaent", "432mA");
-    JSON_Set_String(&new, "Cosalor", "Blue");
-
-    JSON_Set_Float(&new, "Volsatasfge", 4.832);
-    JSON_Set_Integer(&new, "Mossafde", 2);
-    JSON_Set_String(&new, "Currsaensft", "432mA");
-    JSON_Set_String(&new, "Cosflsaor", "Blue");
-
-    JSON_Set_Float(&new, "Volsatasfage", 4.832);
-    JSON_Set_Integer(&new, "Mosfasade", 2);
-    JSON_Set_String(&new, "Cursaarensft", "432mA");
-    JSON_Set_String(&new, "Cosfalosar", "Blue");
+    JSON_Set_String(&new, "Color", "RedGreenBlueWhite");
+    JSON_Set_String(&new, "Alphabet", "abcdefghijklmnopqrstuvwxyz");
 
     char buffer[1000];
 
