@@ -13,7 +13,6 @@
 #define CAPACITY 20
 #define GROWTH 3
 #define STRING_LENGTH 15
-#define MAX_STRING_LENGTH STRING_LENGTH * 2
 #define ENTRY_BUFF_LENGTH ((STRING_LENGTH * 2) + 10)
 
 #define or ||
@@ -34,7 +33,12 @@ typedef struct {
 } JSONDictionary;
 
 void JSON_Dictionary_Init(JSONDictionary* dictionary) {
-	// Allocate a json entry array on the heap
+
+    // This might be called on a JSONDictionary that already has memory allocated
+    // Free entries and re-allocate (free() checks for null)
+    free(dictionary->entries);
+
+    // Allocate a json entry array on the heap
 	dictionary->entries = (JSONEntry*)malloc(sizeof(JSONEntry) * CAPACITY);
 	dictionary->capacity = CAPACITY;
 	dictionary->size = 0;
@@ -69,13 +73,12 @@ uint8_t JSON_String_Valid(const char* string) {
 
     while (string[i] != '\0') {
         i++;
-        if (i == MAX_STRING_LENGTH) {
+        if (i == STRING_LENGTH) {
             // This string is too long or has a broken null-terminator
             return false;
         }
     }
-
-    // String might be too long (strncpy will terminate it) and has a null terminator before the max string length
+    
     return true;
 }
 
