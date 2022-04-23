@@ -15,12 +15,6 @@
 #define STRING_LENGTH 15
 #define ENTRY_BUFF_LENGTH ((STRING_LENGTH * 2) + 10)
 
-#define or ||
-#define and &&
-#define not !
-#define true 1
-#define false 0
-
 typedef struct {
 	char key[STRING_LENGTH];
 	char value[STRING_LENGTH];
@@ -71,16 +65,16 @@ uint8_t JSON_String_Valid(const char* string) {
         i++;
         if (i == STRING_LENGTH) {
             // This string is too long or has a broken null-terminator
-            return false;
+            return 0;
         }
     }
 
-    return true;
+    return 1;
 }
 
 void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* value) {
 
-    if (not JSON_String_Valid(key) or not JSON_String_Valid(value)) {
+    if (!JSON_String_Valid(key) || !JSON_String_Valid(value)) {
         // Passed key or value is broken and unsafe to use, abort
         return;
     }
@@ -115,7 +109,7 @@ void JSON_Set_String(JSONDictionary* dictionary, const char* key, const char* va
 
 void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
 
-    if (not JSON_String_Valid(key)) {
+    if (!JSON_String_Valid(key)) {
         // Passed key or value is broken and unsafe to use, abort
         return;
     }
@@ -131,7 +125,7 @@ void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
 
 void JSON_Set_Integer(JSONDictionary* dictionary, const char* key, uint16_t value) {
 
-    if (not JSON_String_Valid(key)) {
+    if (!JSON_String_Valid(key)) {
         // Passed key or value is broken and unsafe to use, abort
         return;
     }
