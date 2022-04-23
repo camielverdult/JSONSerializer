@@ -12,6 +12,8 @@ int main() {
     JSON_Set_Integer(&new, "Mode", 2);
     JSON_Set_String(&new, "Current", "432mA");
     JSON_Set_String(&new, "Color", "RedGreenBlueWhite");
+
+    // This will not set a new string because the value string length is too long
     JSON_Set_String(&new, "Alphabet", "abcdefghijklmnopqrstuvwxyz");
 
     char buffer[1000];

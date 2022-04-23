@@ -34,10 +34,6 @@ typedef struct {
 
 void JSON_Dictionary_Init(JSONDictionary* dictionary) {
 
-    // This might be called on a JSONDictionary that already has memory allocated
-    // Free entries and re-allocate (free() checks for null)
-    free(dictionary->entries);
-
     // Allocate a json entry array on the heap
 	dictionary->entries = (JSONEntry*)malloc(sizeof(JSONEntry) * CAPACITY);
 	dictionary->capacity = CAPACITY;
@@ -78,7 +74,7 @@ uint8_t JSON_String_Valid(const char* string) {
             return false;
         }
     }
-    
+
     return true;
 }
 
