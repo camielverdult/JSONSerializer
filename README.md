@@ -29,6 +29,6 @@ printf("%s\n", buffer);
 JSON_Cleanup(&new);
 ```
 
-This code is not safe, it would need the following to be memory-safe:
-- Using `strncmp` and `strncpy`
-- Compare length of input buffer replacement before copying memory to destination to verify proper string termination
+This code is ~~not~~ safe, it would need the following to be memory-safe:
+- [x] Using `strncmp` and `strncpy`
+- [x] Compare length of input buffer replacement before copying memory to destination to verify proper string termination
