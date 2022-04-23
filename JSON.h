@@ -42,8 +42,8 @@ void JSON_Dictionary_Init(JSONDictionary* dictionary) {
 
 void JSON_Entry_Init(JSONEntry* dictionary) {
     // Allocate a json entry array on the heap
-    memset(dictionary->key, 0, STRING_LENGTH);
-    memset(dictionary->value, 0, STRING_LENGTH);
+    memset(dictionary->key, '\0', STRING_LENGTH);
+    memset(dictionary->value, '\0', STRING_LENGTH);
 }
 
 void JSON_Check(JSONDictionary* dictionary, uint8_t new_length) {
@@ -122,7 +122,7 @@ void JSON_Set_Float(JSONDictionary* dictionary, const char* key, float value) {
     }
 
     char buffer[STRING_LENGTH];
-    memset(buffer, 0, STRING_LENGTH);
+    memset(buffer, '\0', STRING_LENGTH);
 
     // TODO: find a replacement for this for AVR/arduino
     snprintf(buffer, STRING_LENGTH, "%f", value);
@@ -138,14 +138,14 @@ void JSON_Set_Integer(JSONDictionary* dictionary, const char* key, uint16_t valu
     }
 
 	char buffer[STRING_LENGTH];
-    memset(buffer, 0, STRING_LENGTH);
+    memset(buffer, '\0', STRING_LENGTH);
 
     snprintf(buffer, STRING_LENGTH, "%d", value);
 	JSON_Set_String(dictionary, key, buffer);
 }
 
 void JSON_Serialize_Entry(JSONEntry* entry, char* buffer, uint8_t buffer_length) {
-    memset(buffer, 0, buffer_length);
+    memset(buffer, '\0', buffer_length);
 	snprintf(buffer, buffer_length, "\"%s\": \"%s\"", entry->key, entry->value);
 }
 
