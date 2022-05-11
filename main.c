@@ -20,7 +20,7 @@ int main() {
 
     JSON_Serialize_Dictionary(&new, buffer, 1000);
 
-    printf("%s\n", buffer);
+    printf("Length of buffer: %lu\n%s\n", strlen(buffer), buffer);
 
     JSON_Cleanup(&new);
 
